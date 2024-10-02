@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kawane.exe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #f7a1d1, #f597b9);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .popup {
+            background-color: #f5c5d9;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            position: relative; 
+            text-align: center;
+            border: 15px solid white;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-size: 20px;
+            color: #ef7eb8;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .hearts {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .hearts span {
+            color: #ef7eb8;
+            font-size: 20px;
+            margin-left: 2px;
+        }
+
+        .message p {
+            color: white;
+            font-size: 30px;
+            font-family: 'Arial', sans-serif;
+            margin: 20px 0;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            position: relative; 
+        }
+
+        .btn {
+            background-color: #f5c5d9;
+            color: white;
+            border: 4px solid white;
+            width: 90px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Arial', sans-serif;
+            position: relative; /* Adiciona posicionamento relativo */
+            z-index: 5; /* Z-index maior para o botão */
+        }
+
+        .sim {
+            background-color: #f5c5d9;
+            color: white;
+            margin-left: -90px;
+        }
+
+        .nao {
+            background-color: #f5c5d9;
+            color: white;
+            position: absolute; 
+            margin-left: 110px; 
+            z-index: 10; /* Z-index maior para o botão NÃO */
+        }
+
+        .imagem {
+            position: absolute;
+            width: 200px; 
+            height: 200px; 
+            display: none; 
+            z-index: 0; /* Z-index menor para as imagens */
+        }
+
+        .mensagem-suelen {
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            font-size: 48px; 
+            color: red; 
+            display: none; 
+            z-index: 15; /* Para garantir que fique acima de outras camadas */
+            text-align: center; 
+            font-weight: bold; 
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); 
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, #f7a1d1, #f597b9);
+            z-index: -1;
+            display: flex;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://img.icons8.com/emoji/48/000000/sparkles.png');
+            background-size: 200px 200px;
+            opacity: 0.1;
+            z-index: -1;
+            animation: sparkle 2s infinite ease-in-out;
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 480px) {
+            .popup {
+                width: 90%; 
+            }
+
+            .message p {
+                font-size: 24px; 
+            }
+
+            .btn {
+                width: 70px; 
+                height: 40px; 
+            }
+
+            .nao {
+                margin-left: 60px; 
+            }
+
+            .mensagem-suelen {
+                font-size: 30px; 
+            }
+        }
+          /* Animação de tremor */
+          @keyframes tremor {
+            0% { transform: translate(0px, 0px); }
+            25% { transform: translate(2px, 2px); }
+            50% { transform: translate(-2px, -2px); }
+            75% { transform: translate(2px, -2px); }
+            100% { transform: translate(0px, 0px); }
+        }
+
+        .tremendo {
+            animation: tremor 0.2s infinite; /* Define o tremor para ocorrer continuamente enquanto o efeito estiver ativo */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="popup">
+            <div class="header">
+                <span class="title">kawane.exe</span>
+                <div class="hearts">
+                    <span>♥</span>
+                    <span>♥</span>
+                    <span>♥</span>
+                    <span>♥</span>
+                    <span>♥</span>
+                </div>
+            </div>
+            <div class="message">
+                <p>você vai sempre ser minha única e melhor amiga, não é?</p>
+            </div>
+            <div class="buttons">
+                <button class="btn sim">sim!</button>
+                <button class="btn nao" id="nao">não.</button>
+            </div>
+        </div>
+    </div>
+
+    <img class="imagem" id="imagem1" src="estranho.jpeg" alt="Imagem 1">
+    <img class="imagem" id="imagem2" src="cachorroTriste.jpeg" alt="Imagem 2">
+    <img class="imagem" id="imagem3" src="gato.jpeg" alt="Imagem 3">
+    <img class="imagem" id="imagem3" src="gatoSobrancelha.jpeg" alt="Imagem 5">
+    <img class="imagem" id="imagem3" src="gatoSus.jpeg" alt="Imagem 4">
+
+    <div class="mensagem-suelen" id="mensagemSuelen">NÃO??!!! TENTA DE NOVO SUELEN</div>
+
+    <!-- Adicionando o áudio -->
+    <audio id="som" preload="auto">
+        <source src="ssstik.io_1727873150949.mp3" type="audio/mpeg">
+        
+    </audio>
+
+    <script>
+        const botaoNao = document.getElementById('nao');
+        const popup = document.querySelector('.popup');
+        const mensagemSuelen = document.getElementById('mensagemSuelen');
+        const som = document.getElementById('som'); 
+        
+        // Seleciona o áudio
+
+
+        window.onload = () => {
+            som.load(); // Carrega o áudio
+        };
+
+        function moverBotaoAleatoriamente() {
+            const larguraPopup = popup.offsetWidth;
+            const alturaPopup = popup.offsetHeight;
+
+            const larguraBotao = botaoNao.offsetWidth;
+            const alturaBotao = botaoNao.offsetHeight;
+
+            const novaPosicaoX = Math.random() * (larguraPopup - larguraBotao);
+            const novaPosicaoY = Math.random() * (alturaPopup - alturaBotao);
+
+            botaoNao.style.left = novaPosicaoX + 'px';
+            botaoNao.style.top = novaPosicaoY + 'px';
+        }
+
+        botaoNao.addEventListener('mouseover', () => {
+            moverBotaoAleatoriamente();
+            mostrarImagens();
+            mostrarMensagemSuelen();
+            som.currentTime=0;
+            som.play(); // Toca o som ao tentar clicar no botão "NÃO"
+        });
+
+        function mostrarImagens() {
+            const imagens = document.querySelectorAll('.imagem');
+            imagens.forEach(imagem => {
+                imagem.style.display = 'block'; 
+                imagem.style.left = Math.random() * (window.innerWidth - 50) + 'px'; 
+                imagem.style.top = Math.random() * (window.innerHeight - 50) + 'px'; 
+                imagem.classList.add('tremendo'); // Adiciona a classe que faz a imagem tremer
+            });
+        }
+
+        function mostrarMensagemSuelen() {
+            mensagemSuelen.style.display = 'block'; 
+            setTimeout(() => {
+                mensagemSuelen.style.display = 'none'; 
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
